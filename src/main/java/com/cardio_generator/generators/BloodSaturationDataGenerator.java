@@ -3,12 +3,23 @@ package com.cardio_generator.generators;
 import java.util.Random;
 
 import com.cardio_generator.outputs.OutputStrategy;
+/**
+ * Generates simulated blood saturation data for patients.
+ * The blood saturation data is randomly generated to simulate a real-time monitoring system.
+ * Each patient is assigned a last known saturation value which is updated during simulation.
+ */
 
 public class BloodSaturationDataGenerator implements PatientDataGenerator {
     private static final Random random = new Random();
     private int[] lastSaturationValues;
 
     public BloodSaturationDataGenerator(int patientCount) {
+    /**
+     * Constructor for BloodSaturationDataGenerator.
+     * Initializes baseline saturation values for each patient.
+     *
+     * @param patientCount the number of patients to simulate data for.
+     */
         lastSaturationValues = new int[patientCount + 1];
 
         // Initialize with baseline saturation values for each patient
@@ -16,6 +27,11 @@ public class BloodSaturationDataGenerator implements PatientDataGenerator {
             lastSaturationValues[i] = 95 + random.nextInt(6); // Initializes with a value between 95 and 100
         }
     }
+
+
+    /**
+     * Generates a random blood saturation percentage for a patient.
+     */
 
     @Override
     public void generate(int patientId, OutputStrategy outputStrategy) {

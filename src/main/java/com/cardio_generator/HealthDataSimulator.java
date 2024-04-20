@@ -25,7 +25,17 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
+/**
+ * Simulates the generation and output of various types of health data.
+ * This class orchestrates the simulation of data from different generators
+ * and applies the data to the specified output strategies.
+ */
+
 public class HealthDataSimulator {
+    /**
+     * Starts the simulation of health data.
+     * This method sets up the environment for data generation and output, then begins the simulation.
+     */
 
     private static int patientCount = 50; // Default number of patients
     private static ScheduledExecutorService scheduler;

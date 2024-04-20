@@ -4,9 +4,18 @@ import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import com.cardio_generator.outputs.OutputStrategy;
+/**
+ * Generates alert signals for patient data.
+ * This class simulates conditions that trigger health alerts and passes them to the output strategy.
+ */
 
 // Class to generate alerts for patient data
 public class AlertGenerator implements PatientDataGenerator {
+    /**
+     * Constructs an AlertGenerator for the given number of patients.
+     * 
+     * @param patientCount the number of patients to monitor for alerts
+     */
 
     // Using a logger instead of System.err
     private static final Logger LOGGER = Logger.getLogger(AlertGenerator.class.getName());
@@ -21,6 +30,9 @@ public class AlertGenerator implements PatientDataGenerator {
     public AlertGenerator(int patientCount) {
         alertStates = new boolean[patientCount + 1];
     }
+    /**
+     * Checks and updates the alert state for a patient, generating alert data if necessary.
+     */
 
     @Override
     public void generate(int patientId, OutputStrategy outputStrategy) {

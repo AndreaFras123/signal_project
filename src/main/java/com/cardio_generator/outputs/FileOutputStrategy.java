@@ -9,8 +9,18 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Implements the OutputStrategy to write patient data to files.
+ * This strategy creates a file for each type of data and appends new entries to it.
+ */
+
 // Renamed class to follow UpperCamelCase naming convention
 public class fileOutputStrategy implements OutputStrategy {
+    /**
+     * Constructs a new FileOutputStrategy with the specified base directory.
+     * @throws IOException if an I/O error occurs writing to or creating the file
+     * @param baseDirectory the directory where data files will be stored
+     */
 
     // Logger for error messages
     private static final Logger LOGGER = Logger.getLogger(fileOutputStrategy.class.getName());
@@ -25,6 +35,11 @@ public class fileOutputStrategy implements OutputStrategy {
     public fileOutputStrategy(String baseDirectory) {
         this.baseDirectory = baseDirectory;
     }
+
+    /**
+     * Outputs the data to a file designated for the data label.
+     * @throws IOException if an I/O error occurs during writing to the file
+     */
 
     @Override
     public void output(int patientId, long timestamp, String label, String data) {
