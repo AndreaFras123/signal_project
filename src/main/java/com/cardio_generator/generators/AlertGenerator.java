@@ -1,41 +1,56 @@
 package com.cardio_generator.generators;
 
 import java.util.Random;
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import com.cardio_generator.outputs.OutputStrategy;
 
+// Class to generate alerts for patient data
 public class AlertGenerator implements PatientDataGenerator {
 
-    public static final Random randomGenerator = new Random();
-    private boolean[] AlertStates; // false = resolved, true = pressed
+    // Using a logger instead of System.err
+    private static final Logger LOGGER = Logger.getLogger(AlertGenerator.class.getName());
+    
+    // Renamed variable to follow lowerCamelCase and made private for encapsulation
+    private static final Random randomGenerator = new Random();
+    
+    // Encapsulating the state array and following lowerCamelCase naming convention
+    private boolean[] alertStates; // Indicates resolution state of the alert: false = resolved, true = pressed
 
+    // Constructor to initialize the alert states
     public AlertGenerator(int patientCount) {
-        AlertStates = new boolean[patientCount + 1];
+        alertStates = new boolean[patientCount + 1];
     }
 
     @Override
     public void generate(int patientId, OutputStrategy outputStrategy) {
         try {
-            if (AlertStates[patientId]) {
-                if (randomGenerator.nextDouble() < 0.9) { // 90% chance to resolve
-                    AlertStates[patientId] = false;
-                    // Output the alert
+            if (alertStates[patientId]) {
+                // If alert is active, there's a 90% chance to resolve it
+                if (randomGenerator.nextDouble() < 0.9) {
+                    alertStates[patientId] = false;
                     outputStrategy.output(patientId, System.currentTimeMillis(), "Alert", "resolved");
                 }
             } else {
-                double Lambda = 0.1; // Average rate (alerts per period), adjust based on desired frequency
-                double p = -Math.expm1(-Lambda); // Probability of at least one alert in the period
-                boolean alertTriggered = randomGenerator.nextDouble() < p;
+                // Setting the average rate of alerts per period
+                double averageAlertRate = 0.1;
+                // Calculating the probability of at least one alert in the period
+                double alertProbability = -Math.expm1(-averageAlertRate);
+                boolean alertTriggered = randomGenerator.nextDouble() < alertProbability;
 
                 if (alertTriggered) {
-                    AlertStates[patientId] = true;
-                    // Output the alert
+                    alertStates[patientId] = true;
                     outputStrategy.output(patientId, System.currentTimeMillis(), "Alert", "triggered");
                 }
             }
         } catch (Exception e) {
-            System.err.println("An error occurred while generating alert data for patient " + patientId);
-            e.printStackTrace();
+            // Logging error with proper error handling
+            LOGGER.log(Level.SEVERE, "Error in generating alert for patient ID " + patientId, e);
         }
+    }
+
+    // Getter method for alert states for better encapsulation
+    public boolean getAlertState(int patientId) {
+        return alertStates[patientId];
     }
 }
