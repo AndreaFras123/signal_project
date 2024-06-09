@@ -4,6 +4,7 @@ package com.alerts;
 public class Alert {
     private String patientId;
     private String condition;
+    private String alertType;
     private long timestamp;
 
     public Alert(String patientId, String condition, long timestamp) {
@@ -12,6 +13,13 @@ public class Alert {
         this.timestamp = timestamp;
     }
 
+    public String getAlertType() {
+        return alertType;
+    }
+
+    public void setAlertType(String alertType) {
+        this.alertType = alertType;
+    }
     public String getPatientId() {
         return patientId;
     }
