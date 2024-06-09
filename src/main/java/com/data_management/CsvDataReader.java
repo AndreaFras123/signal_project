@@ -16,7 +16,7 @@ public class CsvDataReader implements DataReader {
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = br.readLine()) != null) {
-                // Assuming CSV format: patientId,measurementValue,recordType,timestamp
+
                 String[] values = line.split(",");
                 int patientId = Integer.parseInt(values[0]);
                 double measurementValue = Double.parseDouble(values[1]);

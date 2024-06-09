@@ -51,8 +51,6 @@ class IntegrationTest {
         // Call evaluateData to check the alert generation logic
         alertGenerator.evaluateData(dataStorage.getPatient(1));
 
-        // Add your assertions here to check the alerts
-
     }
 
     void handleInvalidMessage(String invalidMessage) {
@@ -62,12 +60,11 @@ class IntegrationTest {
 
     @Test
     void testValidData() throws URISyntaxException {
-        // Arrange
+
+
         DataStorage dataStorage = mock(DataStorage.class);
         URI mockUri = new URI("ws://localhost:8080"); // Create a mock URI
         WebSocketClientImpl client = new WebSocketClientImpl(mockUri, dataStorage); // Pass the mock URI
-
-        // Act & Assert
         assertDoesNotThrow(() -> client.parseAndStore("1, 1000, Heart Rate, 80.0"));
     }
 }

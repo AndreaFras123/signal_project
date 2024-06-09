@@ -31,7 +31,6 @@ class AlertGeneratorTest {
         dataStorage.addPatientData(1, 110.0, "BloodPressure", 1627849923000L);
         alertGenerator.evaluateData(patient);
 
-        // Assuming you have a mechanism to collect or check triggered alerts
     }
 
     @Test
@@ -41,7 +40,6 @@ class AlertGeneratorTest {
         dataStorage.addPatientData(1, 88.0, "BloodOxygenSaturation", 1627849923000L);
         alertGenerator.evaluateData(patient);
 
-        // Assuming you have a mechanism to collect or check triggered alerts
     }
 
     @Test
@@ -55,6 +53,5 @@ class AlertGeneratorTest {
         dataStorage.addPatientData(1, 90.0, "BloodOxygenSaturation", 1627849923000L);
         alertGenerator.evaluateData(patient);
 
-        // Assuming you have a mechanism to collect or check triggered alerts
     }
 }

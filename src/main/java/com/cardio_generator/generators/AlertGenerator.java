@@ -38,7 +38,7 @@ public class AlertGenerator implements PatientDataGenerator {
     public void generate(int patientId, OutputStrategy outputStrategy) {
         try {
             if (alertStates[patientId]) {
-                // If alert is active, there's a 90% chance to resolve it
+
                 if (randomGenerator.nextDouble() < 0.9) {
                     alertStates[patientId] = false;
                     outputStrategy.output(patientId, System.currentTimeMillis(), "Alert", "resolved");

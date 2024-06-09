@@ -55,7 +55,7 @@ public class AlertGenerator {
         evaluateBloodPressure(records, String.valueOf(patient.getPatientId()));
         evaluateBloodOxygenSaturation(records, String.valueOf(patient.getPatientId()));
         evaluateHypotensiveHypoxemia(records, String.valueOf(patient.getPatientId()));
-        // Add more evaluations as needed
+
     }
     private void evaluateBloodPressure(List<PatientRecord> records, String patientId) {
         double lastSystolic = -1;
@@ -64,19 +64,19 @@ public class AlertGenerator {
 
         for (PatientRecord record : records) {
             if (record.getRecordType().equals("BloodPressure")) {
-                // Assuming format "systolic/diastolic" is stored as measurementValue in a string
+
                 String[] bp = String.valueOf(record.getMeasurementValue()).split("/");
-                if (bp.length != 2) continue; // Skip if the format is incorrect
+                if (bp.length != 2) continue;
 
                 double systolic = Double.parseDouble(bp[0]);
                 double diastolic = Double.parseDouble(bp[1]);
 
-                // Check for critical threshold
+
                 if (systolic > 180 || systolic < 90 || diastolic > 120 || diastolic < 60) {
                     triggerAlert(new Alert(patientId, "Critical Blood Pressure", record.getTimestamp()));
                 }
 
-                // Check for increasing/decreasing trend
+
                 if (lastSystolic != -1 && lastDiastolic != -1) {
                     if (Math.abs(systolic - lastSystolic) > 10 || Math.abs(diastolic - lastDiastolic) > 10) {
                         trendCount++;
@@ -104,8 +104,7 @@ public class AlertGenerator {
                     triggerAlert(new Alert(patientId, "Low Blood Oxygen Saturation", record.getTimestamp()));
                 }
 
-                // Rapid Drop Alert (Assuming records are in chronological order)
-                // Implement rapid drop detection logic here if needed
+
             }
         }
     }
@@ -155,6 +154,5 @@ public class AlertGenerator {
     private void triggerAlert(Alert alert) {
         alerts.add(alert); // Store the alert in the list
         System.out.println(alert.toString());
-        // Additional implementation might involve logging the alert or notifying staff
     }
 }
